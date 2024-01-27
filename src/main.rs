@@ -13,25 +13,19 @@ pub extern "C" fn _start() -> ! {
 
     OS::init();
 
-    fn stack_overflow(){
-        stack_overflow();
-    }
-
-    stack_overflow();
-
     #[cfg(test)]
     test_main();
 
     println!("It didn't crush");
 
-    loop {}
+    OS::hlt_loop();
 }
 
 #[cfg(not(test))]
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    OS::hlt_loop();
 }
 
 #[cfg(test)]
